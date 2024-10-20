@@ -1,0 +1,27 @@
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-content {
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+  width: auto;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  background-color: #e0f7fa;
+  border: 1px solid #b2ebf2; 
+  border-radius: 8px; 
+  padding: 16px; 
+  color: #006064; 
+  max-width: 100%;
+}
+

@@ -1,0 +1,16 @@
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap; 
+}
+
+
+.about-content {
+    width: 30%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-top: 50px;
+    flex-direction: column;
+}

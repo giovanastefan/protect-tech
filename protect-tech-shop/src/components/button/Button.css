@@ -1,0 +1,16 @@
+.button {
+  background-color: #1B4965;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    text-decoration: none;
+    color: white;
+  }
+}

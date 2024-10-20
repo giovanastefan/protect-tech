@@ -1,0 +1,32 @@
+.orders-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.orders-content {
+  margin: 1rem;
+  padding: 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.185);
+  border-radius: 0.5rem;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.orders-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table th,
+.orders-table td {
+  padding: 10px;
+  text-align: left;
+}
+
+.orders-table th {
+  background-color: #f2f2f2;
+}

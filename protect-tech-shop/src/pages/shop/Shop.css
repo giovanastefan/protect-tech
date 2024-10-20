@@ -1,0 +1,9 @@
+.shop-container {
+  padding: 1rem;
+}
+
+.container-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}

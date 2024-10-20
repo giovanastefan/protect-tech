@@ -1,0 +1,12 @@
+.orders-table th,
+.orders-table td {
+  border: 1px solid #ddd;
+}
+.orders-table th,
+.orders-table td {
+  padding: 15px;
+  text-align: left;
+}
+.orders-table th {
+  background-color: #f2f2f2;
+}

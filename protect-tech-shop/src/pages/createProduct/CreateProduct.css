@@ -1,0 +1,18 @@
+.product-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.product-content {
+    margin: 3rem;
+    padding: 1rem;
+    border: 1px solid black;
+    border-radius: 0.5rem;
+    width: 60%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}

@@ -1,0 +1,115 @@
+.account-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px;
+}
+
+.account-content {
+  margin: 1rem;
+  padding: 1rem 0 1rem 0;
+  border: 1px solid rgba(0, 0, 0, 0.185);
+  border-radius: 0.5rem;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.account-title {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+  width: 100%;
+  align-items: center;
+}
+
+.account-title h2 {
+  margin-left: 1rem;
+}
+
+.form {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+
+  div {
+    margin: 4px;
+  }
+}
+
+.account-title {
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.185);
+  width: 100%;
+  align-items: center;
+}
+
+.details {
+  color: green;
+}
+
+@media (max-width: 768px) {
+  .account-content {
+    width: 80%;
+    padding: 0.5rem;
+  }
+
+  .form-row {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .save-changes-button {
+    margin: 0;
+    width: 100%;
+  }
+
+  .orders-content {
+    width: 80%;
+    padding: 0.5rem;
+  }
+
+  .orders-table table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .orders-table th,
+  .orders-table td {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .account-content {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .orders-content {
+    width: 100%;
+    padding: 0.5rem;
+  }
+
+  .orders-table th,
+  .orders-table td {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+}
+
+.button-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+
+  button {
+    margin-left: 0.5rem;
+    width: 34%;
+    border-radius: 2rem;
+  }
+}

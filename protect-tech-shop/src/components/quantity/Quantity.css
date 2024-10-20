@@ -1,0 +1,25 @@
+.quantity-input {
+  border: 1px solid #e6e6e6;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  border-radius: 2rem;
+  padding: 4px;
+  justify-content: space-between;
+  height: min-content;
+}
+
+.quantity-input input {
+  width: 50px;
+  text-align: center;
+  margin: 0 5px;
+  border: none;
+}
+
+.quantity-input button {
+  background-color: #f2f2f2;
+  border: none;
+  padding: 2px 8px;
+  cursor: pointer;
+  border-radius: 50%;
+}
