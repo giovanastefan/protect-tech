@@ -28,8 +28,6 @@ export const OrderHistory = () => {
       });
     }
 
-    console.log('oi', orders)
-
     return (
       <p>
         It looks like you haven't placed any orders yet. How about making one

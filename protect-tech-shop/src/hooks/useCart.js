@@ -10,13 +10,13 @@ export const useCart = () => {
     try {
       await addToCart(user.userId, productId, quantity);
     } catch (err) {
-      console.error("Error fetching products:", err);
+      console.error("Error adding to cart:", err);
     }
   };
 
   const calculateTotal = (items) => {
     return items
-      .reduce(
+      ?.reduce(
         (total, item) =>
           total + (item.promotionalPrice || item.price) * item.quantity,
         0
@@ -34,14 +34,15 @@ export const useCart = () => {
   };
 
   const handleCreateOrder = async (paymentMethod, addressId) => {
-    fetchCart();
+    await fetchCart();
     const totalAmount = calculateTotal(cartItems);
-    console.log(totalAmount)
-    // try {
-    //   await completeOrder(user.userId, paymentMethod, totalAmount, addressId);
-    // } catch (err) {
-    //   console.log("Error to submit order, try again", err);
-    // }
+    console.log(totalAmount);
+
+    try {
+      await completeOrder(user.userId, paymentMethod, totalAmount, addressId);
+    } catch (err) {
+      console.log("Error submitting order, please try again", err);
+    }
   };
 
   return {

@@ -75,7 +75,7 @@ exports.removeFromCart = (productId, userId) => {
   });
 };
 
-exports.buy = (userId, addressId, paymentMethod, totalAmount) => {
+exports.submitOrder = (userId, addressId, paymentMethod, totalAmount) => {
   return new Promise((resolve, reject) => {
     pool.query("BEGIN", (err) => {
       if (err) return reject(err);

@@ -30,7 +30,6 @@ export const Checkout = () => {
       const addressResponse = await registerAddress(user.userId, address);
       const addressId = addressResponse.address.id;
   
-      console.log('oi', addressId)
       navigate("/checkout/confirm", { state: { addressId } });
     } catch (err) {
       console.error("Error fetching products:", err);
