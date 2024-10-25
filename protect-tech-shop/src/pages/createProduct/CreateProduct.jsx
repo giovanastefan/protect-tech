@@ -2,13 +2,14 @@ import { useState } from "react";
 import { Input } from "../../components/input/Input";
 import "./CreateProduct.css";
 import { Button } from "../../components/button/Button";
+import { createNewProduct } from "../../services/productsService";
 
 export const CreateProduct = () => {
   const [message, setMessage] = useState("");
   const [product, setProduct] = useState({
     name: "",
     description: "",
-    originalPrice: null,
+    price: null,
     promotionalPrice: null,
     category: "",
     imageUrl: "",
@@ -24,14 +25,15 @@ export const CreateProduct = () => {
 
   const createProduct = async () => {
     try {
+      await createNewProduct(product);
       setMessage("Product created with sucess!");
       setProduct({
-        name: '',
-        description: '',
-        originalPrice: '',
-        promotionalPrice: '',
-        category: '',
-        imageUrl: '',
+        name: "",
+        description: "",
+        price: "",
+        promotionalPrice: "",
+        category: "",
+        imageUrl: "",
       });
     } catch (e) {
       setMessage("Something is wrong, try again!");
@@ -62,8 +64,8 @@ export const CreateProduct = () => {
             <Input
               label="Original Price"
               type="number"
-              name="originalPrice"
-              value={product.originalPrice}
+              name="price"
+              value={product.price}
               onChange={handleInputChange}
             />
             <Input
