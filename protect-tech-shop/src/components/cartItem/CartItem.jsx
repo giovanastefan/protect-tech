@@ -5,7 +5,7 @@ import { Quantity } from '../quantity/Quantity';
 import { Button } from '../button/Button';
 
 export const CartItem = ({ product, onRemove, onQuantityChange }) => {
-  const { name, imageUrl, quantity, promotionalPrice = '', price } = product
+  const { name, imageUrl = '', quantity = 1, promotionalPrice = '', price } = product
 
   const [quantityCart, setQuantityCart] = useState(quantity)
 

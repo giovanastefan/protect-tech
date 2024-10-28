@@ -27,7 +27,7 @@ export const Cart = () => {
 
   useEffect(() => {
     fetchCart();
-  }, [fetchCart, user.userId]);
+  }, []);
 
   const renderItems = () => {
     if (cartItems?.length > 0) {

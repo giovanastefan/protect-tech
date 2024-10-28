@@ -50,29 +50,26 @@ exports.getOrderById = (req, res) => {
     });
 };
 
-exports.getProductsByOrder = (req, res) => {
+exports.updateOrder = async (req, res) => {
   const orderId = req.params.id;
-  orderModel
-    .getProductsByOrder(orderId)
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      res.status(500).send("Error fetching products by order.", err.message);
-    });
-};
+  const updatedOrder = req.body;
 
-exports.updateOrder = (req, res) => {
-  const orderId = req.params.id;
-  const newData = req.body;
-  orderModel
-    .updateOrder(orderId, newData)
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      res.status(500).send("Error updating order.", err.message);
-    });
+  try {
+    const result = await orderModel.updateOrder(orderId, updatedOrder);
+
+    if (!result) {
+      return res
+        .status(404)
+        .send({ message: "Order not found or no changes made." });
+    }
+
+    res.status(200).send(result);
+  } catch (err) {
+    console.error("Error updating order:", err);
+    res
+      .status(500)
+      .send({ message: "Error updating order.", error: err.message });
+  }
 };
 
 exports.getPastOrdersByCustomerID = (req, res) => {

@@ -4,12 +4,10 @@ const orderController = require("../controllers/orderController");
 
 router.get("/", orderController.getAllOrders);
 
-router.get("/getProductsByOrder/:id", orderController.getProductsByOrder);
-
 router.put("/update/:id", orderController.updateOrder);
 
-router.get("/:userId", orderController.getAllOrdersByUserId);
+router.get("/:id", orderController.getOrderById);
 
-router.get("/orders/:id", orderController.getOrderById);
+router.get("/user/:userId", orderController.getAllOrdersByUserId);
 
 module.exports = router;
