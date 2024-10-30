@@ -6,6 +6,7 @@ import { createNewProduct } from "../../services/productsService";
 
 export const CreateProduct = () => {
   const [message, setMessage] = useState("");
+  const [imageUrlMessage, setImageUrlMessage] = useState("");
   const [product, setProduct] = useState({
     name: "",
     description: "",
@@ -23,10 +24,29 @@ export const CreateProduct = () => {
     }));
   };
 
+  const validateImageUrl = async () => {
+    try {
+      // Fail A10 - Server-Side Request Forgery (SSRF): The `validateImageUrl` function fetches the image URL
+      // directly from user input without proper validation or restriction. This allows an attacker to supply a
+      // malicious URL, potentially forcing the server to make requests to internal resources or sensitive endpoints,
+      // leading to unauthorized access or exposure of internal network information. To prevent SSRF,
+      // ensure the URL points only to allowed domains, or perform validation on the server side.
+
+      const response = await fetch(product.imageUrl);
+      if (response.ok) {
+        setImageUrlMessage("Image URL is valid!");
+      } else {
+        setImageUrlMessage("Image URL is invalid!");
+      }
+    } catch (e) {
+      setImageUrlMessage("Image URL is invalid!");
+    }
+  };
+
   const createProduct = async () => {
     try {
       await createNewProduct(product);
-      setMessage("Product created with sucess!");
+      setMessage("Product created successfully!");
       setProduct({
         name: "",
         description: "",
@@ -36,7 +56,7 @@ export const CreateProduct = () => {
         imageUrl: "",
       });
     } catch (e) {
-      setMessage("Something is wrong, try again!");
+      setMessage("Something went wrong, try again!");
     }
   };
 
@@ -83,6 +103,8 @@ export const CreateProduct = () => {
             value={product.imageUrl}
             onChange={handleInputChange}
           />
+          <Button onClickButton={validateImageUrl}>Validate Image URL</Button>
+          {imageUrlMessage && <p>{imageUrlMessage}</p>}
           <Button onClickButton={createProduct}>Create Product</Button>
         </div>
       </div>
