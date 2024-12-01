@@ -8,6 +8,8 @@ router.get("/orders/:id", orderController.getOrderById);
 
 router.put("/update/:id", orderController.updateOrder);
 
-router.get("/:userId", orderController.getAllOrdersByUserId);
+router.get("/:id", orderController.getOrderById);
+
+router.get("/user/:userId", orderController.getAllOrdersByUserId);
 
 module.exports = router;

@@ -37,24 +37,6 @@ exports.getProductDetailsById = (req, res) => {
     });
 };
 
-exports.allOrderByProductId = (req, res) => {
-  const { id: productId } = req.params;
-  productModel
-    .getAllOrdersByProductId(productId)
-    .then((result) => {
-      if (result.length === 0) {
-        return res
-          .status(404)
-          .json({ error: "No orders found for this product" });
-      }
-      res.json(result);
-    })
-    .catch((err) => {
-      console.error("Error fetching orders for product:", err.message);
-      res.status(500).json({ error: "Internal Server Error" });
-    });
-};
-
 exports.createProduct = (req, res) => {
   const { name, price, promotionalPrice, description, imageUrl } = req.body;
 
@@ -149,6 +131,6 @@ exports.searchProducts = async (req, res) => {
     res.status(200).json(formattedProducts);
   } catch (error) {
     console.error("Error fetching products:", error);
-    res.status(500).json({ error: "Internal server error" });
+    res.status(500).json({ error: "Internal server error", error });
   }
 };

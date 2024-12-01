@@ -3,6 +3,18 @@ import { API_URL } from '../utils/constants'
 
 const API_URL_PRODUCTS = `${API_URL}/products`
 
+export const createNewProduct = async (product) => {
+  try {
+    const response = await axios.post(`${API_URL_PRODUCTS}/create`, {
+      ...product,
+    });
+
+    return response.data;
+  } catch (error) {
+      throw new Error(error.response.data.message);    
+  }
+}
+
 export const getAllProducts = async () => {
   try {
     const response = await axios.get(`${API_URL_PRODUCTS}/`);

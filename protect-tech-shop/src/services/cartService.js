@@ -41,7 +41,7 @@ export const removeFromCart = async (userId, productId) => {
 
 export const completeOrder = async (userId, paymentMethod, totalAmount, addressId) => {
   try {
-    const response = await axios.post(`${API_URL_PRODUCTS}/buy/${userId}`, {
+    const response = await axios.post(`${API_URL_PRODUCTS}/submitOrder/${userId}`, {
       paymentMethod,
       totalAmount,
       addressId,

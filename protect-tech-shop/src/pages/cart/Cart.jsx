@@ -13,27 +13,34 @@ export const Cart = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
 
-  const handleRemoveFromCart = useCallback(async (productId) => {
-    try {
-      await removeFromCart(user.userId, productId);
-      fetchCart();
-    } catch (err) {
-      console.error("Error removing product:", err);
-    }
-  }, [fetchCart, user.userId]);
+  const handleRemoveFromCart = useCallback(
+    async (productId) => {
+      try {
+        await removeFromCart(user.userId, productId);
+        fetchCart();
+      } catch (err) {
+        console.error("Error removing product:", err);
+      }
+    },
+    [fetchCart, user.userId]
+  );
 
   useEffect(() => {
     fetchCart();
-  }, [fetchCart, user.userId]);
+  }, []);
 
   const renderItems = () => {
-    return cartItems.map((item) => (
-      <CartItem
-        key={item.productId}
-        product={item}
-        onRemove={() => handleRemoveFromCart(item.productId)}
-      />
-    ));
+    if (cartItems?.length > 0) {
+      return cartItems.map((item) => (
+        <CartItem
+          key={item.productId}
+          product={item}
+          onRemove={() => handleRemoveFromCart(item.productId)}
+        />
+      ));
+    }
+
+    return <span>No products added to the cart!</span>
   };
 
   return (

@@ -58,12 +58,12 @@ exports.removeFromCart = (req, res) => {
     });
 };
 
-exports.buy = (req, res) => {
+exports.submitOrder = (req, res) => {
   const userId = req.params.userId;
   const { addressId, paymentMethod, totalAmount } = req.body;
 
   cartModel
-    .buy(userId, addressId, paymentMethod, totalAmount)
+    .submitOrder(userId, addressId, paymentMethod, totalAmount)
     .then(() => {
       res.status(200).send("Purchase completed successfully.");
     })

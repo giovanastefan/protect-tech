@@ -2,18 +2,19 @@ import { useState } from "react";
 import { Input } from "../../components/input/Input";
 import "./CreateProduct.css";
 import { Button } from "../../components/button/Button";
+import { createNewProduct } from "../../services/productsService";
 
 export const CreateProduct = () => {
   const [message, setMessage] = useState("");
+  const [imageUrlMessage, setImageUrlMessage] = useState("");
   const [product, setProduct] = useState({
     name: "",
     description: "",
-    originalPrice: null,
+    price: null,
     promotionalPrice: null,
     category: "",
     imageUrl: "",
   });
-  const [isValidImageUrl, setIsValidImageUrl] = useState(false); // Estado para rastrear a validade da URL
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -23,39 +24,39 @@ export const CreateProduct = () => {
     }));
   };
 
-  const validateImageUrl = async (url) => {
+  const validateImageUrl = async () => {
     try {
-      const response = await fetch(url, { method: "HEAD" });
-      return response.ok;
-    } catch (error) {
-      return false;
-    }
-  };
+      // Fail A10 - Server-Side Request Forgery (SSRF): The `validateImageUrl` function fetches the image URL
+      // directly from user input without proper validation or restriction. This allows an attacker to supply a
+      // malicious URL, potentially forcing the server to make requests to internal resources or sensitive endpoints,
+      // leading to unauthorized access or exposure of internal network information. To prevent SSRF,
+      // ensure the URL points only to allowed domains, or perform validation on the server side.
 
-  const handleValidateImageUrl = async () => {
-    const isValid = await validateImageUrl(product.imageUrl);
-    if (isValid) {
-      setIsValidImageUrl(true);
-      setMessage("Image URL is valid!");
-    } else {
-      setIsValidImageUrl(false);
-      setMessage("Invalid image URL, please provide a valid one.");
+      const response = await fetch(product.imageUrl);
+      if (response.ok) {
+        setImageUrlMessage("Image URL is valid!");
+      } else {
+        setImageUrlMessage("Image URL is invalid!");
+      }
+    } catch (e) {
+      setImageUrlMessage("Image URL is invalid!");
     }
   };
 
   const createProduct = async () => {
     try {
-      setMessage("Product created with success!");
+      await createNewProduct(product);
+      setMessage("Product created successfully!");
       setProduct({
         name: "",
         description: "",
-        originalPrice: null,
-        promotionalPrice: null,
+        price: "",
+        promotionalPrice: "",
         category: "",
         imageUrl: "",
       });
     } catch (e) {
-      setMessage("Something is wrong, try again!");
+      setMessage("Something went wrong, try again!");
     }
   };
 
@@ -83,8 +84,8 @@ export const CreateProduct = () => {
             <Input
               label="Original Price"
               type="number"
-              name="originalPrice"
-              value={product.originalPrice}
+              name="price"
+              value={product.price}
               onChange={handleInputChange}
             />
             <Input
@@ -102,19 +103,8 @@ export const CreateProduct = () => {
             value={product.imageUrl}
             onChange={handleInputChange}
           />
-          {isValidImageUrl && (
-            <div className="image-preview">
-              <img
-                src={product.imageUrl}
-                alt="Product"
-                width={120}
-                height={120}
-              />
-            </div>
-          )}
-          <Button onClickButton={handleValidateImageUrl}>
-            Validate Image URL
-          </Button>
+          <Button onClickButton={validateImageUrl}>Validate Image URL</Button>
+          {imageUrlMessage && <p>{imageUrlMessage}</p>}
           <Button onClickButton={createProduct}>Create Product</Button>
         </div>
       </div>
