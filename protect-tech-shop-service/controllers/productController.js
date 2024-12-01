@@ -112,10 +112,10 @@ exports.deleteProduct = (req, res) => {
   productModel
     .deleteProduct(productId)
     .then((result) => {
-      if (result.affectedRows === 0) {
-        return res.status(404).json({ error: "Product not found" });
+      if (result.length > 0) {
+        return res.json({ message: "Product deleted successfully" });
       }
-      res.json({ message: "Product deleted successfully" });
+      return res.status(404).json({ error: "Product not found" });
     })
     .catch((err) => {
       console.error("Error deleting product:", err.message);

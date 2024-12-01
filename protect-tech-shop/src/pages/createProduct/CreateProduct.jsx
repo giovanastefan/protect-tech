@@ -13,6 +13,7 @@ export const CreateProduct = () => {
     category: "",
     imageUrl: "",
   });
+  const [isValidImageUrl, setIsValidImageUrl] = useState(false); // Estado para rastrear a validade da URL
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,16 +23,36 @@ export const CreateProduct = () => {
     }));
   };
 
+  const validateImageUrl = async (url) => {
+    try {
+      const response = await fetch(url, { method: "HEAD" });
+      return response.ok;
+    } catch (error) {
+      return false;
+    }
+  };
+
+  const handleValidateImageUrl = async () => {
+    const isValid = await validateImageUrl(product.imageUrl);
+    if (isValid) {
+      setIsValidImageUrl(true);
+      setMessage("Image URL is valid!");
+    } else {
+      setIsValidImageUrl(false);
+      setMessage("Invalid image URL, please provide a valid one.");
+    }
+  };
+
   const createProduct = async () => {
     try {
-      setMessage("Product created with sucess!");
+      setMessage("Product created with success!");
       setProduct({
-        name: '',
-        description: '',
-        originalPrice: '',
-        promotionalPrice: '',
-        category: '',
-        imageUrl: '',
+        name: "",
+        description: "",
+        originalPrice: null,
+        promotionalPrice: null,
+        category: "",
+        imageUrl: "",
       });
     } catch (e) {
       setMessage("Something is wrong, try again!");
@@ -81,6 +102,19 @@ export const CreateProduct = () => {
             value={product.imageUrl}
             onChange={handleInputChange}
           />
+          {isValidImageUrl && (
+            <div className="image-preview">
+              <img
+                src={product.imageUrl}
+                alt="Product"
+                width={120}
+                height={120}
+              />
+            </div>
+          )}
+          <Button onClickButton={handleValidateImageUrl}>
+            Validate Image URL
+          </Button>
           <Button onClickButton={createProduct}>Create Product</Button>
         </div>
       </div>

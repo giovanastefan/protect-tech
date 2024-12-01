@@ -19,7 +19,7 @@ export const Login = () => {
       const userResponse = await loginUser({ email, password });
       console.log("Login successful:", userResponse);
       
-      login({...userResponse.user});
+      login({...userResponse.user.userData});
 
       navigate("/");
     } catch (err) {

@@ -19,12 +19,16 @@ exports.getAllOrders = (req, res) => {
       res.send(formattedOrders);
     })
     .catch((err) => {
-      res.status(500).send("Error fetching orders.", err.message);
+      res.status(500).send("Error fetching orders. " + err.message);
     });
 };
 
 exports.getAllOrdersByUserId = (req, res) => {
-  const { userId } = req.params;
+  const userId = parseInt(req.params.userId, 10);
+
+  if (isNaN(userId)) {
+    return res.status(400).send("Invalid user ID. Please provide a valid integer.");
+  }
 
   orderModel
     .getAllOrdersByUserId(userId)
@@ -34,55 +38,58 @@ exports.getAllOrdersByUserId = (req, res) => {
     })
     .catch((err) => {
       console.error(err.message);
-      res.status(500).send("Error fetching orders.", err.message);
+      res.status(500).send("Error fetching orders. " + err.message);
     });
 };
 
 exports.getOrderById = (req, res) => {
-  const orderId = req.params.id;
+  const orderId = parseInt(req.params.id, 10);
+
+  if (isNaN(orderId)) {
+    return res.status(400).send("Invalid order ID. Please provide a valid integer.");
+  }
+
   orderModel
     .getOrderById(orderId)
     .then((result) => {
       res.send(result);
     })
     .catch((err) => {
-      res.status(500).send("Error fetching order.", err.message);
-    });
-};
-
-exports.getProductsByOrder = (req, res) => {
-  const orderId = req.params.id;
-  orderModel
-    .getProductsByOrder(orderId)
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      res.status(500).send("Error fetching products by order.", err.message);
+      res.status(500).send("Error fetching order. " + err.message);
     });
 };
 
 exports.updateOrder = (req, res) => {
-  const orderId = req.params.id;
+  const orderId = parseInt(req.params.id, 10);
   const newData = req.body;
+
+  if (isNaN(orderId)) {
+    return res.status(400).send("Invalid order ID. Please provide a valid integer.");
+  }
+
   orderModel
     .updateOrder(orderId, newData)
     .then((result) => {
       res.send(result);
     })
     .catch((err) => {
-      res.status(500).send("Error updating order.", err.message);
+      res.status(500).send("Error updating order. " + err.message);
     });
 };
 
 exports.getPastOrdersByCustomerID = (req, res) => {
-  const customerId = req.params.id;
+  const customerId = parseInt(req.params.id, 10);
+
+  if (isNaN(customerId)) {
+    return res.status(400).send("Invalid customer ID. Please provide a valid integer.");
+  }
+
   orderModel
     .getPastOrdersByCustomerID(customerId)
     .then((result) => {
       res.send(result);
     })
     .catch((err) => {
-      res.status(500).send("Error fetching past orders.", err.message);
+      res.status(500).send("Error fetching past orders. " + err.message);
     });
 };

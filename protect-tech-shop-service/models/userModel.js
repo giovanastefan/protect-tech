@@ -41,11 +41,6 @@ async function verifyPassword(password, storedHashedPassword) {
   // after a certain number of failed attempts (e.g., 5 failed attempts). This helps prevent
   // automated brute-force attacks.
 
-  // A09 Fail - No logs are implemented to monitor potential attack attempts.
-  // This issue arises when:
-  // There are no mechanisms in place to log failed login attempts or suspicious activities,
-  // making it difficult to detect brute force attacks, unauthorized access attempts, or other security threats.
-
   const hashedPassword = crypto
     .createHash("md5")
     .update(password)
@@ -107,14 +102,6 @@ exports.login = async (email, password) => {
       isAdmin: user.is_admin,
     };
 
-    // A08 Fail - Exposing a weak secret key and setting an excessively long token expiration time.
-    // This issue occurs when:
-    // 1. The secret key used for signing the token is weak, predictable, or publicly exposed,
-    //    making it easier for attackers to forge or decode tokens.
-    // 2. Leaving the secret key in plain text in the code allows potential attackers to access it,
-    //    especially if the code is publicly shared (e.g., in repositories).
-    // 3. Setting the token expiration time to 90 days increases the window of exposure if the token
-    //    is compromised, allowing unauthorized access for a prolonged period.
     const token = jwt.sign(userData, secretKey, {
       expiresIn: "90d",
       algorithm: "HS256",
@@ -122,6 +109,11 @@ exports.login = async (email, password) => {
 
     return { token, userData };
   } catch (err) {
+
+    // A09 Fail - No logs are implemented to monitor potential attack attempts.
+    // This issue arises when:
+    // There are no mechanisms in place to log failed login attempts or suspicious activities,
+    // making it difficult to detect brute force attacks, unauthorized access attempts, or other security threats.
     console.error("Error during login:", err);
     throw err;
   }

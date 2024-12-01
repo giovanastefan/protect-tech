@@ -19,6 +19,8 @@ function FeedbackPage() {
     // allows unsanitized user input to be injected directly into the DOM, creating
     // an opportunity for attackers to exploit XSS vulnerabilities.
 
+    // A08 Fail - Using a insegure version of jQuery
+
     $("#feedback-display").html(feedback);
   };
 
